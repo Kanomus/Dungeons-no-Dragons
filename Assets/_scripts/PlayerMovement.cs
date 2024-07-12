@@ -13,6 +13,7 @@ public class PlayerMovement : Movement
     [SerializeField] private GameObject enemies;
     [SerializeField] private int moveTime = 100;
     [SerializeField] private int attackTime = 100;
+    [SerializeField] private Animator animator;
     public void MoveUp(InputAction.CallbackContext context)
     {
         if(context.performed){
@@ -25,7 +26,7 @@ public class PlayerMovement : Movement
             }
             if(toAttack) Attack();
             else if(tile==null){
-                Move(movePoint, direction);
+                Move(animator, movePoint, direction);
                 Clock.PassTime(moveTime);
             }
         }
@@ -42,7 +43,7 @@ public class PlayerMovement : Movement
             }
             if(toAttack) Attack();
             else if(tile==null){
-                Move(movePoint, direction);
+                Move(animator, movePoint, direction);
                 Clock.PassTime(moveTime);
             }
         }
@@ -59,7 +60,7 @@ public class PlayerMovement : Movement
             }
             if(toAttack) Attack();
             else if(tile==null){
-                Move(movePoint, direction);
+                Move(animator, movePoint, direction);
                 Clock.PassTime(moveTime);
             }
         }
@@ -76,7 +77,7 @@ public class PlayerMovement : Movement
             }
             if(toAttack) Attack();
             else if(tile==null){
-                Move(movePoint, direction);
+                Move(animator, movePoint, direction);
                 Clock.PassTime(moveTime);
             }
         }

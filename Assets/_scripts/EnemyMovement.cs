@@ -16,6 +16,7 @@ public class EnemyMovement : Movement
     private GameObject player;
     public EnemyData enemyData;
     public int waitTime;
+    private Animator animator;
     private void Start()
     {
         movePoint = GetComponent<Transform>();
@@ -24,6 +25,7 @@ public class EnemyMovement : Movement
         wallTilemap = TilemapManager.Instance.wallTilemap;
         waitTime = enemyData.moveTime;
         if(wallTilemap == null) Debug.Log("No Tilemap found");
+        animator = GetComponentInChildren<Animator>();
     }
     public void ChooseRandomDirection()
     {
@@ -50,7 +52,7 @@ public class EnemyMovement : Movement
             return;
         }
         else if(!blocked){
-            Move(movePoint, (Vector3Int)direction);
+            Move(animator, movePoint, (Vector3Int)direction);
             return;
         }
         
@@ -59,5 +61,7 @@ public class EnemyMovement : Movement
     private void Attack()
     {
         Debug.Log(name + " attacked you!");
+        animator.SetTrigger("Attack");
+        player.GetComponent<Player>().hp -= enemyData.damage;
     }
 }

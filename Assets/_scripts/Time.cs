@@ -15,8 +15,8 @@ public class Clock : MonoBehaviour
     private void Start()
     {
         clockVisual = GetComponent<Image>();
-        dungeonMaster = GameObject.Find("DungeonMaster").GetComponent<DungeonMaster>();
-        if(dungeonMaster == null) Debug.Log("dungeon master not found");
+        if(!GameObject.Find("DungeonMaster").TryGetComponent<DungeonMaster>(out dungeonMaster)) 
+            Debug.Log("dungeon master not found");
     }
     public static void PassTime(int timeToPass)
     {

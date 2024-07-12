@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38de0d76277e6314f980cee1876a7f83, type: 3}
   m_Name: SkeletonData
   m_EditorClassIdentifier: 
-  enemy: {fileID: 5239392429616643667, guid: acf6fa9bb6418464da9028297f149181, type: 3}
   moveTime: 100
   attackTime: 100
   maxHP: 20
   viewRange: 0
+  damage: 10

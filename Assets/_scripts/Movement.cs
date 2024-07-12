@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public void Move(Transform movePoint, Vector3Int direction)
+    public void Move(Animator animator, Transform movePoint, Vector3Int direction)
     {
+        animator.SetBool("IsMoving", true);
         Vector3 destination = movePoint.position + direction;
-        StartCoroutine(SmoothMovement(movePoint, destination));
+        StartCoroutine(SmoothMovement(animator, movePoint, destination));
     }
-    IEnumerator SmoothMovement(Transform movePoint, Vector3 destination)
+    IEnumerator SmoothMovement(Animator animator, Transform movePoint, Vector3 destination)
     {
-        float moveSpeed = 0.1f;
-        while(Vector3.Distance(movePoint.position, destination) >= 0.1f){
-            movePoint.position = Vector3.Lerp(movePoint.position, destination, moveSpeed * Time.fixedDeltaTime);
+        float moveSpeed = 20f;
+        while(Vector2.Distance(movePoint.position, destination) > 0.01f){
+            movePoint.position = Vector2.Lerp(movePoint.position, destination, Time.fixedDeltaTime * moveSpeed);
+            yield return null;
         }
         movePoint.position = destination;
-        yield return null;
+        animator.SetBool("IsMoving", false);
     }
 }

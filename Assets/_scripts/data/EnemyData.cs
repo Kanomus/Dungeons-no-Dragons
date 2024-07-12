@@ -9,4 +9,5 @@ public class EnemyData : ScriptableObject
     public int attackTime;
     public int maxHP;
     public int viewRange;
+    public int damage;
 }
