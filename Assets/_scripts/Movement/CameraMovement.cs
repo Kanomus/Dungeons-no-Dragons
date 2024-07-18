@@ -10,7 +10,7 @@ public class CameraMovement : MonoBehaviour
         direction.z = Input.mouseScrollDelta.y;
         return direction;
     }
-    private void move(Vector3 moveDirection)
+    private void Move(Vector3 moveDirection)
     {
         transform.position = moveDirection;
     }

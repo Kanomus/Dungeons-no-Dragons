@@ -16,4 +16,4 @@ MonoBehaviour:
   attackTime: 100
   maxHP: 20
   viewRange: 0
-  damage: 10
+  damage: 5

@@ -17,9 +17,10 @@ public class EnemyMovement : Movement
     public EnemyData enemyData;
     public int waitTime;
     private Animator animator;
+    [SerializeField] private bool isFlipped;
     private void Start()
     {
-        movePoint = GetComponent<Transform>();
+        movePoint = GetComponentInChildren<Transform>();
         enemies = GameObject.Find("EnemyClones");
         player = GameObject.Find("Player");
         wallTilemap = TilemapManager.Instance.wallTilemap;
@@ -30,32 +31,47 @@ public class EnemyMovement : Movement
     public void ChooseRandomDirection()
     {
         Vector2Int startPosition = Vector2Int.RoundToInt(movePoint.position);
-        bool blocked = false;
+        bool blocked;
         int attempts = 0;
-        Vector2Int direction = new();
-        Vector3Int destination = new();
-        do{
+        _ = new Vector2Int();
+        _ = new Vector3Int();
+        Vector2Int direction;
+        Vector3Int destination;
+        do
+        {
             blocked = false;
             direction = Direction2D.GetRandomCardinalDirection();
             destination = (Vector3Int)(startPosition + direction);
             TileBase wall = wallTilemap.GetTile(destination);
             //repeat this if tile!=null || enemy.position == destination
-            foreach(Transform enemy in enemies.transform){
-                if(enemy.position == destination) blocked = true;
-            }
-            if(wall != null) blocked = true;
+            foreach (Transform enemy in enemies.transform)
+                if (enemy.position == destination) blocked = true;
+
+            if (wall != null) blocked = true;
             attempts++;
-        } while(blocked && attempts<10);
-        
-        if(player.transform.position == (Vector3)destination){
+        } while (blocked && attempts < 10);
+
+        if (player.transform.position == (Vector3)destination){
             Attack();
+            Flip(direction);
             return;
         }
         else if(!blocked){
-            Move(animator, movePoint, (Vector3Int)direction);
+            gameObject.transform.position += (Vector3Int) direction;
+            movePoint.position -= (Vector3Int) direction;
+            Move(animator, movePoint, gameObject.transform);
+            Flip(direction);
             return;
         }
-        
+        return;
+    }
+    private void Flip(Vector2Int direction)
+    {
+        if((isFlipped && direction[0] > 0) || (!isFlipped && direction[0] < 0)){
+            var spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            spriteRenderer.flipX = !spriteRenderer.flipX;
+            isFlipped = !isFlipped;
+        }
     }
 
     private void Attack()

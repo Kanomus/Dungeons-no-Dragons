@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6913478894405183428}
   - component: {fileID: 2878468041975974895}
+  - component: {fileID: 4373512414302363365}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -45,7 +46,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b4aa304c62d8a46948c56e743aa31d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallTilemap: {fileID: 0}
+  enemyData: {fileID: 11400000, guid: 83aa06d3bcca0bc4e85e2d2499bc2999, type: 2}
+  waitTime: 0
+  isFlipped: 0
+--- !u!114 &4373512414302363365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729098566714844291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae772ddbeed6a504e9aa78d5090db598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 83aa06d3bcca0bc4e85e2d2499bc2999, type: 2}
 --- !u!1 &2309004199846181012
 GameObject:
