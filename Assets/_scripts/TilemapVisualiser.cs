@@ -10,7 +10,8 @@ public class TilemapVisualiser : MonoBehaviour
 
     [SerializeField] private TileBase floorTile, wallTop, wallRight, wallLeft, wallBottom, wallFull,
     wallInnerCornerDownLeft, wallInnerCornerDownRight,
-    wallDiagonalCornerDownRight, wallDiagonalCornerDownLeft, wallDiagonalCornerUpRight, wallDiagonalCornerUpLeft;
+    wallDiagonalCornerDownRight, wallDiagonalCornerDownLeft, wallDiagonalCornerUpRight, wallDiagonalCornerUpLeft,
+    ExitClosed, ExitOpen;
 
     private void PaintSingleTile(Tilemap tilemap, TileBase tile, Vector2Int position){
         var tilePosition = tilemap.WorldToCell((Vector3Int)position);
@@ -21,6 +22,9 @@ public class TilemapVisualiser : MonoBehaviour
         foreach (var position in positions){
             PaintSingleTile(tilemap, tile, position);
         }
+    }
+    public void PaintExitTile(Vector2Int position){
+        PaintSingleTile(floorTilemap, ExitClosed, position);
     }
 
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions){
@@ -62,6 +66,12 @@ public class TilemapVisualiser : MonoBehaviour
         floorTilemap.ClearAllTiles();
         wallTilemap.ClearAllTiles();
     }
-
-    
+    public List<TileBase> GetExitTiles()
+    {
+        return new List<TileBase>{ExitClosed, ExitOpen};
+    }
+    public void OpenExit()
+    {
+        floorTilemap.SwapTile(ExitClosed, ExitOpen);
+    }
 }

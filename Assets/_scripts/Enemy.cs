@@ -9,9 +9,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyData enemyData;
     private Animator animator;
     private int HP;
+    private DungeonMaster dungeonMaster;
 
     void Start()
     {
+        dungeonMaster = GameObject.Find("DungeonMaster").GetComponent<DungeonMaster>();
         animator = GetComponentInChildren<Animator>();
         maxHP = enemyData.maxHP;
         SetMaxHealth(maxHP);
@@ -19,7 +21,6 @@ public class Enemy : MonoBehaviour
     public void SetMaxHealth(int health)
     {
         maxHP = health;
-        // healthBar.maxValue = health;
     }
 
     public void Hurt(int health)
@@ -31,5 +32,6 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log(gameObject.name + " died...");
         animator.SetTrigger("Death");
+        Destroy(this.gameObject, 0.2f);
     }
 }

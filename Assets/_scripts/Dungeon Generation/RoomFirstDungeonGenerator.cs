@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.PlasticSCM.Editor.WebApi;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
@@ -39,8 +41,6 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
             }
         }
 
-        SpawnPlayer(roomsList[0]);
-
         List<Vector2Int> roomCenters = new();
         foreach(var room in roomsList){
             roomCenters.Add((Vector2Int)Vector3Int.RoundToInt(room.center));
@@ -52,6 +52,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
         tilemapVisualiser.PaintFloorTiles(floor);
         WallGenerator.CreateWalls(floor, tilemapVisualiser);
         
+        DifferentiateRooms(roomsList);
+
         EnemySpawner.RemoveEnemies(enemyClones);
         EnemySpawner.SpawnEnemies(rooms, maxEnemiesPerRoom, enemyPrefabs, enemyClones);
     }
@@ -60,6 +62,25 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     {
         Transform player = GameObject.Find("Player").transform;
         player.position = Vector3Int.RoundToInt(spawnRoom.center);
+    }
+    private void SpawnKey(BoundsInt keyRoom)
+    {
+        Transform key = GameObject.Find("Key").transform;
+        key.position = Vector3Int.RoundToInt(keyRoom.center);
+    }
+    private void SpawnExit(BoundsInt exitRoom)
+    {
+        tilemapVisualiser.PaintExitTile(Vector2Int.RoundToInt(exitRoom.center));
+    }
+    private void DifferentiateRooms(List<BoundsInt> rooms)
+    {
+        int[] numbers = new int[3];
+        for(int i=0; i<3; i++){
+            numbers[i] = Random.Range(0,rooms.Count-1);
+        }
+        SpawnPlayer(rooms[numbers[0]]);
+        SpawnKey(rooms[numbers[1]]);
+        SpawnExit(rooms[numbers[2]]);
     }
 
     private HashSet<HashSet<Vector2Int>> CreateRandomRooms(List<BoundsInt> roomsList)

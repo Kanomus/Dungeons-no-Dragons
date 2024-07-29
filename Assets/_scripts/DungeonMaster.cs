@@ -6,15 +6,23 @@ using UnityEngine;
 public class DungeonMaster : MonoBehaviour
 {
     public GameObject enemyClones;
-    private readonly List<EnemyMovement> enemies = new();
+    private List<EnemyMovement> enemies = new();
+    RoomFirstDungeonGenerator dungeonGenerator;
     private void Start()
     {
+        dungeonGenerator.GenerateDungeon();
+        FindEnemies();
+    }
+    public void FindEnemies()
+    {
+        enemies = new();
         foreach(Transform enemy in enemyClones.transform){
             enemies.Add(enemy.GetComponent<EnemyMovement>());
         }
     }
     public void EnemyTurn(int timeToPass)
     {
+        FindEnemies();
         for(int i = 0; i < enemies.Count; i++){
             enemies[i].waitTime -= timeToPass;
             if(enemies[i].waitTime <= 0){
@@ -24,6 +32,13 @@ public class DungeonMaster : MonoBehaviour
                 }
             }
         }
-
+    }
+    public void Descend()
+    {
+        Victory();
+    }
+    private void Victory()
+    {
+        Debug.Log("You win!!");
     }
 }

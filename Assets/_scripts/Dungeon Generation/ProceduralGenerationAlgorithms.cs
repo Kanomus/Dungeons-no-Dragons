@@ -33,8 +33,8 @@ public static class ProceduralGenerationAlgorithms
 
     public static List<BoundsInt> BinarySpacePartitioning(BoundsInt spaceToSplit, int minWidth, int minHeight)
     {
-        Queue<BoundsInt> roomsQueue = new Queue<BoundsInt>();
-        List<BoundsInt> roomsList = new List<BoundsInt>();
+        Queue<BoundsInt> roomsQueue = new();
+        List<BoundsInt> roomsList = new();
 
         roomsQueue.Enqueue(spaceToSplit);
 
