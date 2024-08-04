@@ -14,12 +14,17 @@ public class Player : MonoBehaviour
     private TextMeshProUGUI keyCountUI;
     private TilemapVisualiser tilemapVisualiser;
 
-    void Start()
+    void Awake()
     {
-        hp = maxhp;
-        SetMaxHealth(maxhp);
         keyCountUI = GameObject.Find("KeyCount").GetComponentInChildren<TextMeshProUGUI>();
         tilemapVisualiser = GameObject.Find("TilemapVisualiser").GetComponent<TilemapVisualiser>();
+        Initialise();
+    }
+    public void Initialise()
+    {
+        SetMaxHealth(maxhp);
+        hp = maxhp;
+        keyCount = 0;
     }
     public void SetMaxHealth(int health)
     {

@@ -2,7 +2,7 @@
     "name": "Controls",
     "maps": [
         {
-            "name": "Move",
+            "name": "Primary",
             "id": "47c558fb-ca47-4320-a804-cb99fe0d7c2e",
             "actions": [
                 {
@@ -36,6 +36,15 @@
                     "name": "Right",
                     "type": "Button",
                     "id": "47d278c6-b540-42af-9378-b9bf26b39439",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "f6b9e695-560c-436a-a0a0-5157b870a3ce",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -128,6 +137,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "653e4117-5c61-49e0-be68-ef683cb563c2",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

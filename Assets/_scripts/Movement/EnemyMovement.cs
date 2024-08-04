@@ -18,13 +18,13 @@ public class EnemyMovement : Movement
     public int waitTime;
     private Animator animator;
     [SerializeField] private bool isFlipped;
-    //movement is weird for bats, they ignore walls too
     private void Start()
     {
         movePoint = this.gameObject.transform.GetChild(0).transform;
         enemies = GameObject.Find("EnemyClones");
         player = GameObject.Find("Player");
-        wallTilemap = TilemapManager.Instance.wallTilemap;
+        // wallTilemap = TilemapManager.Instance.wallTilemap;
+        wallTilemap = GameObject.Find("TilemapVisualiser").GetComponent<TilemapVisualiser>().wallTilemap;
         waitTime = enemyData.moveTime;
         if(wallTilemap == null) Debug.Log("No Tilemap found");
         animator = GetComponentInChildren<Animator>();

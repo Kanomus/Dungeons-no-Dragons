@@ -2,25 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.UI;
 
 
 public class InputManager : MonoBehaviour
 {
-    private Grid _grid;
-    public static Vector2 movement;
-
-    private PlayerInput _playerInput;
-    private InputAction _moveAction;
-
-    void Awake()
+    private GameObject pauseMenu;
+    public bool isPaused = false;
+    public void TogglePause(InputAction.CallbackContext callbackContext)
     {
-        _playerInput = GetComponent<PlayerInput>();
-        _grid = GameObject.Find("Grid").GetComponent<Grid>();
-        
+        isPaused = !isPaused;
+        Time.timeScale = isPaused ? 0 : 1;
+        if(callbackContext.performed){
+            if(isPaused) Unpause();
+            else Pause();
+        }
     }
-
-    void Update()
+    private void Unpause()
     {
+        pauseMenu = GameObject.Find("PauseMenu");
+        pauseMenu.SetActive(false);
+    }
+    private void Pause()
+    {
+        pauseMenu = GameObject.Find("PauseMenu");
+        pauseMenu.SetActive(true);
     }
 }

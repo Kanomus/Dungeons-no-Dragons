@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class TilemapVisualiser : MonoBehaviour
 {
-    [SerializeField] private Tilemap floorTilemap, wallTilemap;
+    public Tilemap floorTilemap, wallTilemap;
 
     [SerializeField] private TileBase floorTile, wallTop, wallRight, wallLeft, wallBottom, wallFull,
     wallInnerCornerDownLeft, wallInnerCornerDownRight,

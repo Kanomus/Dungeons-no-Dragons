@@ -7,7 +7,7 @@ public class DungeonMaster : MonoBehaviour
 {
     public GameObject enemyClones;
     private List<EnemyMovement> enemies = new();
-    RoomFirstDungeonGenerator dungeonGenerator;
+    [SerializeField] private RoomFirstDungeonGenerator dungeonGenerator;
     private void Start()
     {
         dungeonGenerator.GenerateDungeon();

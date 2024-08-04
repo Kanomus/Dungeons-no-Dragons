@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -16,6 +17,8 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     [SerializeField] private int dungeonHeight = 20, dungeonWidth = 20;
     [SerializeField] [Range(0,10)] private int offset = 1;
     [SerializeField] private bool RandomWalkRooms = false;
+    [SerializeField] private GameObject key;
+    [SerializeField] private GameObject items;
 
     protected override void RunProceduralGeneration()
     {
@@ -65,12 +68,14 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     }
     private void SpawnKey(BoundsInt keyRoom)
     {
-        Transform key = GameObject.Find("Key").transform;
-        key.position = Vector3Int.RoundToInt(keyRoom.center);
+        while(items.transform.childCount > 0)
+            DestroyImmediate(items.transform.GetChild(0).gameObject);
+        GameObject Key = Instantiate(this.key, new Vector2(keyRoom.center.x, keyRoom.center.y + 1), quaternion.identity);
+        Key.transform.parent = items.transform;
     }
     private void SpawnExit(BoundsInt exitRoom)
     {
-        tilemapVisualiser.PaintExitTile(Vector2Int.RoundToInt(exitRoom.center));
+        tilemapVisualiser.PaintExitTile(Vector2Int.RoundToInt(exitRoom.center) + new Vector2Int(0,1));
     }
     private void DifferentiateRooms(List<BoundsInt> rooms)
     {
