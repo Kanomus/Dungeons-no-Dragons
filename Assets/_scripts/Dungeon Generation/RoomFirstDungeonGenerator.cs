@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
-using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -70,7 +69,7 @@ public class RoomFirstDungeonGenerator : SimpleRandomWalkDungeonGenerator
     {
         while(items.transform.childCount > 0)
             DestroyImmediate(items.transform.GetChild(0).gameObject);
-        GameObject Key = Instantiate(this.key, new Vector2(keyRoom.center.x, keyRoom.center.y + 1), quaternion.identity);
+        GameObject Key = Instantiate(this.key, new Vector2(Mathf.Floor(keyRoom.center.x), Mathf.Floor(keyRoom.center.y + 1)), quaternion.identity);
         Key.transform.parent = items.transform;
     }
     private void SpawnExit(BoundsInt exitRoom)

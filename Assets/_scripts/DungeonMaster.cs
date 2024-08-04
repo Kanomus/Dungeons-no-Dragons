@@ -8,6 +8,7 @@ public class DungeonMaster : MonoBehaviour
     public GameObject enemyClones;
     private List<EnemyMovement> enemies = new();
     [SerializeField] private RoomFirstDungeonGenerator dungeonGenerator;
+    [SerializeField] private GameObject winScreen;
     private void Start()
     {
         dungeonGenerator.GenerateDungeon();
@@ -40,5 +41,6 @@ public class DungeonMaster : MonoBehaviour
     private void Victory()
     {
         Debug.Log("You win!!");
+        winScreen.SetActive(true);
     }
 }

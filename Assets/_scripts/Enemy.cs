@@ -10,13 +10,19 @@ public class Enemy : MonoBehaviour
     private Animator animator;
     private int HP;
     private DungeonMaster dungeonMaster;
+#pragma warning restore IDE0052 // Remove unread private members
 
     void Start()
     {
         dungeonMaster = GameObject.Find("DungeonMaster").GetComponent<DungeonMaster>();
         animator = GetComponentInChildren<Animator>();
-        maxHP = enemyData.maxHP;
-        SetMaxHealth(maxHP);
+        
+        Initialise();
+    }
+    private void Initialise()
+    {
+        SetMaxHealth(enemyData.maxHP);
+        HP = maxHP;
     }
     public void SetMaxHealth(int health)
     {

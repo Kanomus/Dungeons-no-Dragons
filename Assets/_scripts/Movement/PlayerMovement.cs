@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
@@ -96,6 +95,7 @@ public class PlayerMovement : Movement
     private void Attack(Enemy enemy)
     {
         Debug.Log("You attacked the " + enemy.gameObject.name + "!");
+        animator.SetTrigger("Attack");
         enemy.Hurt(attack);
         Clock.PassTime(attackTime);
     }

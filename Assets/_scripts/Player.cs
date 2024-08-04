@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public int keyCount;
     private TextMeshProUGUI keyCountUI;
     private TilemapVisualiser tilemapVisualiser;
+    [SerializeField] private Animator animator;
+    [SerializeField] private GameObject deathScreen;
 
     void Awake()
     {
@@ -25,6 +27,11 @@ public class Player : MonoBehaviour
         SetMaxHealth(maxhp);
         hp = maxhp;
         keyCount = 0;
+    }
+    public void Revive()
+    {
+        animator.SetTrigger("Restart");
+        animator.ResetTrigger("Death");
     }
     public void SetMaxHealth(int health)
     {
@@ -41,11 +48,29 @@ public class Player : MonoBehaviour
         }
         return canOpen;
     }
+    bool CheckDeath()
+    {
+        if(hp <= 0){
+            hp = 0;
+            return true;
+        }
+        return false;
+    }
     void Update()
     {
         healthBar.GetComponent<Slider>().value = hp;
         try{healthBar.GetComponentInChildren<TextMeshProUGUI>().text = hp.ToString() + " / " + maxhp.ToString();}
         catch{Debug.Log("TExt not FouND");}
+        if(CheckDeath()){
+            animator.SetTrigger("Death");
+            deathScreen.SetActive(true);
+            StartCoroutine(Die());
+        }
         keyCountUI.text = "x " + keyCount.ToString();  
+    }
+    IEnumerator Die()
+    {
+        animator.ResetTrigger("Restart");
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
     }
 }
